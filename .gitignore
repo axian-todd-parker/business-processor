@@ -1,0 +1,5 @@
+﻿/.vs
+/BusinessProcessor/obj
+/DataGenerator/obj
+/LogAggregator/src/LogAggregator/obj
+/ResourceAutomation/src/ResourceAutomation/obj
