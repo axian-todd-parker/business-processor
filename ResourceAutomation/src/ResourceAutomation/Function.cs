@@ -9,7 +9,14 @@ using System.Text.Json;
 
 public class Function
 {
-    private readonly AmazonEC2Client _ec2Client = new();
+    private readonly IAmazonEC2 _ec2Client;
+
+    public Function() : this(new AmazonEC2Client()) { }
+
+    public Function(IAmazonEC2 ec2Client)
+    {
+        _ec2Client = ec2Client;
+    }
 
     public async Task FunctionHandler(SQSEvent evnt, ILambdaContext context)
     {
