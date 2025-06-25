@@ -35,10 +35,20 @@ public class Function
                     break;
 
                 case "modify-instance-type":
+                    await _ec2Client.StopInstancesAsync(new StopInstancesRequest
+                    {
+                        InstanceIds = new List<string> { command.ResourceId }
+                    });
+
                     await _ec2Client.ModifyInstanceAttributeAsync(new ModifyInstanceAttributeRequest
                     {
                         InstanceId = command.ResourceId,
                         InstanceType = command.Parameter
+                    });
+
+                    await _ec2Client.StartInstancesAsync(new StartInstancesRequest
+                    {
+                        InstanceIds = new List<string> { command.ResourceId }
                     });
                     break;
 
