@@ -3,3 +3,6 @@
 /DataGenerator/obj
 /LogAggregator/src/LogAggregator/obj
 /ResourceAutomation/src/ResourceAutomation/obj
+/ResourceAutomationTests/bin/Debug/net9.0
+/ResourceAutomationTests/obj/Debug/net9.0
+/ResourceAutomationTests/obj

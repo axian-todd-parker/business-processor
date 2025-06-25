@@ -11,6 +11,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogAggregator", "LogAggrega
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResourceAutomation", "ResourceAutomation\src\ResourceAutomation\ResourceAutomation.csproj", "{1D3C71BA-EF20-4E6F-93B6-AA0546B28670}"
 EndProject
+
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CloudFormation", "CloudFormation", "{38DCE1FE-AA9D-4400-8471-616353428CA4}"
+	ProjectSection(SolutionItems) = preProject
+		CloudFormation\logaggregator-cloudformation.yaml = CloudFormation\logaggregator-cloudformation.yaml
+		CloudFormation\resourceautomation-cloudformation.yaml = CloudFormation\resourceautomation-cloudformation.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
