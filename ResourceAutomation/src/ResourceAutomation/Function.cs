@@ -42,6 +42,13 @@ public class Function
                     });
                     break;
 
+                case "terminate-instance":
+                    await _ec2Client.TerminateInstancesAsync(new TerminateInstancesRequest
+                    {
+                        InstanceIds = new List<string> { command.ResourceId }
+                    });
+                    break;
+
                 default:
                     context.Logger.LogWarning($"Unknown action: {command.Action}");
                     break;
