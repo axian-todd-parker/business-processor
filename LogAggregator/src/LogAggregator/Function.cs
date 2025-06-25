@@ -30,16 +30,39 @@ public class Function
 
     private async Task SaveToDatabase(LogMessage log)
     {
-        using var conn = new SqlConnection(_connectionString);
+        using SqlConnection conn = new SqlConnection(_connectionString);
         await conn.OpenAsync();
 
-        using var cmd = conn.CreateCommand();
-        cmd.CommandText = "INSERT INTO Logs (Timestamp, Level, Message) VALUES (@ts, @lvl, @msg)";
+        using SqlCommand cmd = conn.CreateCommand();
+        cmd.CommandText = BuildInsertQuery();
+        AddSqlParameters(cmd, log);
+
+        try
+        {
+            int result = await cmd.ExecuteNonQueryAsync();
+            if (result != 1)
+            {
+                Console.WriteLine($"Unexpected insert result: {result}");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error writing log to DB: {ex.Message}");
+        }
+    }
+
+    private static string BuildInsertQuery()
+    {
+        return "INSERT INTO Logs (Timestamp, Level, Message) VALUES (@ts, @lvl, @msg)";
+    }
+
+    private static void AddSqlParameters(SqlCommand cmd, LogMessage log)
+    {
         cmd.Parameters.AddWithValue("@ts", log.Timestamp);
         cmd.Parameters.AddWithValue("@lvl", log.Level);
         cmd.Parameters.AddWithValue("@msg", log.Message);
-        await cmd.ExecuteNonQueryAsync();
     }
+
 }
 
 public class LogMessage
