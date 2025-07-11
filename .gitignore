@@ -6,3 +6,5 @@
 /ResourceAutomationTests/bin/Debug/net9.0
 /ResourceAutomationTests/obj/Debug/net9.0
 /ResourceAutomationTests/obj
+BusinessProcessor/bin
+DataGenerator/bin
