@@ -21,9 +21,9 @@ public class Function
 
             await SaveToDatabase(log);
 
-            if (log.Level == "Error")
+            if (log.Level == "Error" || log.Level == "Critical")
             {
-                await _snsClient.PublishAsync(_snsTopicArn, $"[Error] {log.Message}", "LogAggregator Alert");
+                await _snsClient.PublishAsync(_snsTopicArn, $"[{log.Level}] {log.Message}", "LogAggregator Alert");
             }
         }
     }
@@ -34,7 +34,8 @@ public class Function
         await conn.OpenAsync();
 
         using var cmd = conn.CreateCommand();
-        cmd.CommandText = "INSERT INTO Logs (Timestamp, Level, Message) VALUES (@ts, @lvl, @msg)";
+        cmd.CommandText = "INSERT INTO Logs (Timestamp, Level, Message, Source) VALUES (@ts, @lvl, @msg, @src)";
+        cmd.Parameters.AddWithValue("@src", log.Source);
         cmd.Parameters.AddWithValue("@ts", log.Timestamp);
         cmd.Parameters.AddWithValue("@lvl", log.Level);
         cmd.Parameters.AddWithValue("@msg", log.Message);
@@ -47,4 +48,6 @@ public class LogMessage
     public DateTime Timestamp { get; set; }
     public string Level { get; set; } = "Info";
     public string Message { get; set; } = string.Empty;
+    public string Source { get; set; } = "unknown";
+
 }
